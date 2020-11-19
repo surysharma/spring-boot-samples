@@ -2,15 +2,17 @@ package com.thebigscale.controller;
 
 import com.google.common.flogger.FluentLogger;
 import com.thebigscale.dto.ClientProfile;
-import lombok.NonNull;
 import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 @RestController
@@ -24,28 +26,55 @@ public class ClientProfileController {
 
         logger.atInfo().log("Page count is " + pageCount);
 
-        val clientProfile = new ClientProfile(new Random(1).nextLong(), "sury", "22",
-                "Test profile summary",
-                "some@email.com"
-                );
+        val clientProfile = ClientProfile.builder()
+                .id(new Random(1).nextLong())
+                .age(22)
+                .email("some@email.com")
+                .profileSummary("Test profile summary")
+                .build();
+
         return new ResponseEntity<>(clientProfile, HttpStatus.OK);
     }
 
     @GetMapping("/client/{id}")
     @ResponseBody
     public ResponseEntity<?> getClient(@PathVariable String id) {
-        val clientProfile = new ClientProfile(Integer.parseInt(id), "sury", "22",
-                "Test profile summary", "some@email.com");
+        val clientProfile = ClientProfile.builder()
+        .id(Integer.parseInt(id))
+                .name("sury")
+                .age(22)
+                .profileSummary("Test profile summary")
+                .email("some@email.com")
+                .build();
         return new ResponseEntity<>(clientProfile, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/client", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/client",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClientProfile> addClient(@Valid @RequestBody ClientProfile clientProfile) {
-//        ClientProfile clientProfile = requestEntity.getBody();
         assert clientProfile != null;
-        val clientProfileWithId = new ClientProfile(Math.abs(new Random(1).nextLong()), clientProfile.getName(),
-                clientProfile.getAge(), clientProfile.getProfileSummary(), clientProfile.getEmail());
+        val clientProfileWithId = ClientProfile.builder()
+                .id(Math.abs(new Random(1).nextLong()))
+                .name(clientProfile.getName())
+                .age(clientProfile.getAge())
+                .profileSummary(clientProfile.getProfileSummary())
+                .email(clientProfile.getEmail())
+                .build();
+
         return new ResponseEntity<>(clientProfileWithId, HttpStatus.ACCEPTED);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException exp) {
+        val errorMap = new HashMap<String, String>();
+        exp.getBindingResult().getAllErrors().forEach(err -> {
+            String fieldName = ((FieldError) err).getField();
+            String errMessage = err.getDefaultMessage();
+            errorMap.put(fieldName, errMessage);
+        });
+        return errorMap;
     }
 
 }

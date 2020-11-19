@@ -1,25 +1,27 @@
 package com.thebigscale.dto;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.extern.jackson.Jacksonized;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
-@Data public class ClientProfile {
+@Data @Builder @Jacksonized
+public class ClientProfile {
 
-    private final long id;
-
-    @NotNull(message = "Name cannot be null")
-    private final String name;
-
-    @Size(message = "Age should be between 15 to 70 years", min = 15, max = 70)
-    private final String age;
+    private long id;
 
     @NotNull(message = "Name cannot be null")
-    private final String profileSummary;
+    private String name;
+
+    @Min(value = 15, message = "Min age should be more 15 years")
+    @Max(value = 70, message = "Max age should be less than 70 years")
+    private int age;
+
+    @NotNull(message = "Name cannot be null")
+    private String profileSummary;
 
     @Email(message = "Invalid email provided")
     @NotNull
-    private final String email;
+    private String email;
 }
