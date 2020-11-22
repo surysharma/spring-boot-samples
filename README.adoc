@@ -1,0 +1,6 @@
+## Spring boot sample REST service showcasing the user profile service
+
+### Showcasing following features
+* Integration test using `@SpringBootTest` 
+* Web testing using `@MockMvc` and `@AutoConfigureMockMvc` annotation
+* Lombok annotations instead of Vanilla pojos
