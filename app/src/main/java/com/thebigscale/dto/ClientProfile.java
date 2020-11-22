@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 @Data @Builder @Jacksonized
 public class ClientProfile {
 
-    private long id;
+    private String id;
 
     @NotNull(message = "Name cannot be null")
     private String name;

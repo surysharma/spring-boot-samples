@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.UUID;
 
 @RestController
 public class ClientProfileController {
@@ -27,7 +26,8 @@ public class ClientProfileController {
         logger.atInfo().log("Page count is " + pageCount);
 
         val clientProfile = ClientProfile.builder()
-                .id(new Random(1).nextLong())
+                .id(UUID.randomUUID().toString())
+                .name("Sury")
                 .age(22)
                 .email("some@email.com")
                 .profileSummary("Test profile summary")
@@ -40,7 +40,7 @@ public class ClientProfileController {
     @ResponseBody
     public ResponseEntity<?> getClient(@PathVariable String id) {
         val clientProfile = ClientProfile.builder()
-        .id(Integer.parseInt(id))
+        .id(UUID.randomUUID().toString())
                 .name("sury")
                 .age(22)
                 .profileSummary("Test profile summary")
@@ -55,7 +55,7 @@ public class ClientProfileController {
     public ResponseEntity<ClientProfile> addClient(@Valid @RequestBody ClientProfile clientProfile) {
         assert clientProfile != null;
         val clientProfileWithId = ClientProfile.builder()
-                .id(Math.abs(new Random(1).nextLong()))
+                .id(UUID.randomUUID().toString())
                 .name(clientProfile.getName())
                 .age(clientProfile.getAge())
                 .profileSummary(clientProfile.getProfileSummary())
@@ -67,14 +67,14 @@ public class ClientProfileController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException exp) {
+    public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException exp) {
         val errorMap = new HashMap<String, String>();
         exp.getBindingResult().getAllErrors().forEach(err -> {
             String fieldName = ((FieldError) err).getField();
             String errMessage = err.getDefaultMessage();
             errorMap.put(fieldName, errMessage);
         });
-        return errorMap;
+        return ResponseEntity.badRequest().body(errorMap);
     }
 
 }

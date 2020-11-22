@@ -2,6 +2,7 @@ package com.thebigscale.controller;
 
 import lombok.val;
 import org.hamcrest.core.Is;
+import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class ClientProfileControllerTest {
                         .content(clientProfileJson)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isAccepted())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", IsNull.notNullValue()))
                 .andExpect(MockMvcResultMatchers.content()
                 .contentType(MediaType.APPLICATION_JSON)
         );
