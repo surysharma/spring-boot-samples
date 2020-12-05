@@ -1,16 +1,16 @@
 [
   {
     "creditCardNumber": "123456789",
-    "itemName": "item1",
+    "itemName": "Plastic item1",
     "orderLocation": "UK",
     "orderNumber": "order-434343",
-    "price": 534,
-    "quantity": 3,
+    "price": 6,
+    "quantity": 300,
     "oderDateTime": "2020-12-04 18:45:42"
   },
   {
     "creditCardNumber": "987654321",
-    "itemName": "item2",
+    "itemName": "Non-Plastic item2",
     "orderLocation": "UK",
     "orderNumber": "order-987",
     "price": 900,
@@ -19,7 +19,7 @@
   },
   {
     "creditCardNumber": "242343243",
-    "itemName": "item3",
+    "itemName": "Non-Plastic item3",
     "orderLocation": "UK",
     "orderNumber": "order-434343",
     "price": 534,
@@ -28,20 +28,65 @@
   },
   {
     "creditCardNumber": "34234322",
-    "itemName": "item4",
+    "itemName": "Plastic item4",
     "orderLocation": "UK",
-    "orderNumber": "order-434343",
+    "orderNumber": "order-322",
+    "price": 2,
+    "quantity": 300,
+    "oderDateTime": "2020-12-04 18:45:42"
+  },
+  {
+    "creditCardNumber": "665463443",
+    "itemName": "Plastic item5",
+    "orderLocation": "UK",
+    "orderNumber": "order-443",
+    "price": 5,
+    "quantity": 201,
+    "oderDateTime": "2020-12-04 18:45:42"
+  },
+  {
+    "creditCardNumber": "123456789",
+    "itemName": "Plastic item6",
+    "orderLocation": "UK",
+    "orderNumber": "order-789",
+    "price": 6,
+    "quantity": 300,
+    "oderDateTime": "2020-12-04 18:45:42"
+  },
+  {
+    "creditCardNumber": "987632221",
+    "itemName": "Non-Plastic item7",
+    "orderLocation": "UK",
+    "orderNumber": "order-221",
+    "price": 9,
+    "quantity": 400,
+    "oderDateTime": "2020-12-04 18:45:42"
+  },
+  {
+    "creditCardNumber": "242343243",
+    "itemName": "Non-Plastic item8",
+    "orderLocation": "UK",
+    "orderNumber": "order-343",
     "price": 534,
     "quantity": 3,
     "oderDateTime": "2020-12-04 18:45:42"
   },
   {
-    "creditCardNumber": "665463443",
-    "itemName": "item5",
+    "creditCardNumber": "34234322",
+    "itemName": "Plastic item9",
     "orderLocation": "UK",
-    "orderNumber": "order-434343",
-    "price": 534,
-    "quantity": 3,
+    "orderNumber": "order-322",
+    "price": 2,
+    "quantity": 300,
+    "oderDateTime": "2020-12-04 18:45:42"
+  },
+  {
+    "creditCardNumber": "5454546343",
+    "itemName": "Plastic item10",
+    "orderLocation": "UK",
+    "orderNumber": "order-343",
+    "price": 5,
+    "quantity": 201,
     "oderDateTime": "2020-12-04 18:45:42"
   }
 ]
